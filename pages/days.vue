@@ -1,21 +1,24 @@
 <template>
   <div class="container">
-      <button @click="getDaysData" >click</button>
-      <h1 v-for="k in Key" :key="k.id">
-          {{k}}
-      </h1>
+      
+      <h5 v-for="k in Key" :key="k.id">
+        {{k}}
+      </h5>
   </div>
 </template>
 
 <script>
 export default {
-    data(){
+    data(){ 
         return{
             Key: []
         }
     },
     props: ['days'],
     
+    mounted() {
+        this.getDaysData()
+    },
     methods: {
         getDaysData: async function(){
             console.log(this.$router)

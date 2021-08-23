@@ -5,12 +5,13 @@
   type="text" 
   placeholder="search.."
   v-model="citySearch"
+  @keypress="getData"
   > 
   <button class="btn btn-primary" v-on:click="getData">search</button>
   </nav>
 
     <div class="container">
-    <table class="table">
+    <table class="table" v-for="p in cityResult" :key="p.id">
         <thead>
           <tr>
             <th scope="col">Id</th>
@@ -21,7 +22,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="p in cityResult" :key="p.id">
+          <tr >
               <td>{{p.Key}}</td>
               <td>
                 {{p.LocalizedName}}
@@ -58,8 +59,8 @@ export default {
        }
    }, 
    methods :{
-    getData: async function(){
-  
+    getData: async function(e){
+      if(e.key == "Enter"){ 
       console.log(this.citySearch);
       const key = 's6GKrcurx7Fw9IVdr5cYviAEL5oYIdQ8'
        const base = `http://dataservice.accuweather.com/locations/v1/cities/search?q=${this.citySearch}&apikey=${key}`
@@ -69,6 +70,7 @@ export default {
       // console.log(data);
       this.cityResult = data;
       console.log(this.cityResult);
+    }
     },
     goto(e,Key){
       console.log(e.target.value , Key);
